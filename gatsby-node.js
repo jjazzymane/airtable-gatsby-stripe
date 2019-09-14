@@ -237,7 +237,7 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                         //RETRIEVE THE SOURCE NODE FOR TITLENAMES
                         const thisNode = context.nodeModel.getNodeById({ id: source.id })
                         const thisField = thisNode.titleProduct
-                        //console.log(thisField)
+                        console.log(thisField)
                         //RETRIEVE NODES FROM STRIPEPRODUCT
                         const allStripeProduct = getNodesByType('StripeProduct')
                         for (existing in allStripeProduct) {
@@ -246,7 +246,7 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                             if (allStripeProductField.toLowerCase() === thisField.toLowerCase()) {
                                 //return `${allStripeProductField.toLowerCase()} is the same as Strip's ${thisField.toLowerCase()}`
                                 console.log(true)
-                            } else { return thisField }
+                            } else { console.log(false)}
                         }
                         
                     }
