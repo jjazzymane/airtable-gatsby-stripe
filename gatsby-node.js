@@ -17,7 +17,7 @@ exports.createResolvers = ({
                     const stripeProduct = getNodesByType(`StripeProduct`)
                     
                     //return source.fieldValue
-                    
+
                     for (yaya in stripeProduct) { 
                         if (stripeProduct[yaya].id === source.fieldValue ) { 
                             return stripeProduct[yaya].name
@@ -227,7 +227,33 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
 
                     } 
                 },
+                newProducts: {
+                    // goal: see if data in airtable is same as in stripe
+                    // true: return statement that this title is already a product 
+                    // false: return a button to create that item in stripe
+                    type: `String`,
+                    resolve: async(source, args, context, info) => {
+                        
+                        //RETRIEVE THE SOURCE NODE FOR TITLENAMES
+                        const thisNode = context.nodeModel.getNodeById({ id: source.id })
+                        const thisField = thisNode.titleProduct
+                        //console.log(thisField)
+                        //RETRIEVE NODES FROM STRIPEPRODUCT
+                        const allStripeProduct = getNodesByType('StripeProduct')
+                        for (existing in allStripeProduct) {
+                            const allStripeProductField = allStripeProduct[existing].name
+                            console.log(allStripeProductField.toLowerCase())
+                            if (allStripeProductField.toLowerCase() === thisField.toLowerCase()) {
+                                //return `${allStripeProductField.toLowerCase()} is the same as Strip's ${thisField.toLowerCase()}`
+                                console.log(true)
+                            } else { return thisField }
+                        }
+                        
+                    }
+                }
             }
         })
     )
 }
+
+

@@ -115,9 +115,7 @@ export default () => (<StaticQuery
 
   render = {data => (
     <Layout>
-      // goal: see if data in airtable is same as in stripe
-      // true: return statement that this title is already a product 
-      // false: return a button to create that item in stripe
+      
 
       
 
