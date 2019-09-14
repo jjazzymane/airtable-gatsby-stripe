@@ -231,23 +231,49 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                     // goal: see if data in airtable is same as in stripe
                     // true: return statement that this title is already a product 
                     // false: return a button to create that item in stripe
-                    type: `String`,
+                    type: [`String!`],
                     resolve: async(source, args, context, info) => {
-                        
+                        const whtIwant = []
+                        const checkLen = []
+                        const reallyWhtIwant = []
+
                         //RETRIEVE THE SOURCE NODE FOR TITLENAMES
                         const thisNode = context.nodeModel.getNodeById({ id: source.id })
                         const thisField = thisNode.titleProduct
-                        console.log(thisField)
+                        //console.log(thisField)
+
                         //RETRIEVE NODES FROM STRIPEPRODUCT
                         const allStripeProduct = getNodesByType('StripeProduct')
                         for (existing in allStripeProduct) {
                             const allStripeProductField = allStripeProduct[existing].name
-                            console.log(allStripeProductField.toLowerCase())
+                            //console.log(allStripeProductField.toLowerCase())
+                            checkLen.push(allStripeProductField)
                             if (allStripeProductField.toLowerCase() === thisField.toLowerCase()) {
-                                //return `${allStripeProductField.toLowerCase()} is the same as Strip's ${thisField.toLowerCase()}`
-                                console.log(true)
-                            } else { console.log(false)}
+                               //console.log(true)
+                            } else { 
+                                //console.log(false)
+                                //console.log(thisField)
+                                whtIwant.push(thisField)
+                            }
                         }
+
+                        // checking the array lengths
+                        // why: when running through the array of all products in Stripe 
+                        // and they all return false, then I want this resolver to return the first item 
+                        // in the list. If the lengths are not equal it returns an empty array [] value.
+                        // question: can we skip empty [] values in arrays when retreiving the data on a page?
+                        if (whtIwant.length === checkLen.length) {
+                            console.log(`3 false: ${whtIwant}`)
+                            for (n in whtIwant) {
+                                // n is an index number; type: string 
+                                if ( n === "0" ) { 
+                                    console.log(whtIwant[n])
+                                    reallyWhtIwant.push(whtIwant[n]) 
+                                }
+                            }
+                        }
+                        
+                        return reallyWhtIwant
                         
                     }
                 }
