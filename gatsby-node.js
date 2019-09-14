@@ -261,7 +261,7 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                         // why: when running through the array of all products in Stripe 
                         // and they all return false, then I want this resolver to return the first item 
                         // in the list. If the lengths are not equal it returns an empty array [] value.
-                        // question: can we skip empty [] values in arrays when retreiving the data on a page?
+                        // in query: to filter for the data we want use the (filter: {newProducts: {ne: "FILTER_ME_OUT"}})
                         if (whtIwant.length === checkLen.length) {
                             console.log(`3 false: ${whtIwant}`)
                             for (n in whtIwant) {
@@ -271,6 +271,15 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                                     reallyWhtIwant.push(whtIwant[n]) 
                                 }
                             }
+                        } else { 
+                            for (n in whtIwant) {
+                                // n is an index number; type: string 
+                                if ( n === "0" ) { 
+                                    console.log(whtIwant[n])
+                                    reallyWhtIwant.push('FILTER_ME_OUT') 
+                                }
+                            }
+
                         }
                         
                         return reallyWhtIwant

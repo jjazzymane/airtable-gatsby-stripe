@@ -99,16 +99,10 @@ export default () => (<StaticQuery
   query = { graphql` 
   {
     
-    allCoachClaraAirtable {
+    magic: allCoachClaraAirtable(filter: {newProducts: {ne: "FILTER_ME_OUT"}}) {
       nodes {
-        titleProduct
+        newProducts
       }
-    }
-    allStripeProduct {
-      nodes {
-        name
-      }
-      
     }
     
   }`}
@@ -116,7 +110,9 @@ export default () => (<StaticQuery
   render = {data => (
     <Layout>
       
-
+      {data.magic.map(({nodes})=> 
+        <h1>node.newProducts</h1>
+      )}
       
 
     </Layout>
