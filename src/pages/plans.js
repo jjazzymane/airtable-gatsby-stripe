@@ -1,8 +1,8 @@
 import React from "react"
-import { StaticQuery, Link, graphql } from "gatsby"
-import Layout from "../components/layout"
+import { StaticQuery, graphql } from "gatsby"
+import Layout from "../components/layout"/* 
 import Image from "../components/image"
-import SEO from "../components/seo"
+import SEO from "../components/seo" */
 
 class Products extends React.Component { 
 
@@ -37,7 +37,7 @@ class Products extends React.Component {
     }
 
     render() { 
-        const { amount, id, currency, nickname, product} = this.props;
+        const { amount, id, currency, nickname } = this.props;
         const priceFloat = (amount/100).toFixed(2)
         const formattedPrice = Intl.NumberFormat('en-US',{style:'currency', currency}).format(priceFloat)
 

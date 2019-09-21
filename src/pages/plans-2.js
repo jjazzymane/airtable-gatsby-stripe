@@ -5,38 +5,36 @@ import Layout from "../components/layout"
 export default () => ( <StaticQuery
     query = {graphql`
         {    
-            product: allStripeProduct {
-                totalCount
+            magic: allCoachClaraAirtable(filter: 
+                {newProducts: 
+                    {ne: "FILTER_ME_OUT"}
+                }
+            ) {
+                nodes { 
+                    newProducts
+                }
                 edges {
-                    node {
-                        name
-                        object
-                        id
+                    node { 
+                        newProducts
+                        titleProduct
+                        planFULL
+                        planBWKLY
+                        planMONTHLY
+                        planGROUP15
+                        planGROUP25
                     }
                 }
             }
-            unicorn: allStripePlan {
-                group(field: product) {
-                  edges {
-                    node {
-                      id
-                      amount
-                      currency
-                      object
-                      nickname
-                      product
-                    }
-                  }
-                  totalCount
-                  fieldValue
-                }
-              }
+            
         }
     `}
     render = {data => (
         <Layout>
-            {data.map(({unicorn, product}, index)=>(
-                <div key={index}>YO</div>
+            {data.magic.edges.map(({node})=> (
+                <div>
+                    <p>{node.newProducts}</p>
+                    <h2>{node.titleProduct}</h2>
+                </div>
             ))}
         </Layout>
     )}

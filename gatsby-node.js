@@ -263,11 +263,11 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                         // in the list. If the lengths are not equal it returns an empty array [] value.
                         // in query: to filter for the data we want use the (filter: {newProducts: {ne: "FILTER_ME_OUT"}})
                         if (whtIwant.length === checkLen.length) {
-                            console.log(`3 false: ${whtIwant}`)
+                            //console.log(`3 false: ${whtIwant}`)
                             for (n in whtIwant) {
                                 // n is an index number; type: string 
                                 if ( n === "0" ) { 
-                                    console.log(whtIwant[n])
+                                    //console.log(whtIwant[n])
                                     reallyWhtIwant.push(whtIwant[n]) 
                                 }
                             }
@@ -275,7 +275,7 @@ exports.sourceNodes = ({ actions, schema, getNodesByType }) => {
                             for (n in whtIwant) {
                                 // n is an index number; type: string 
                                 if ( n === "0" ) { 
-                                    console.log(whtIwant[n])
+                                    //console.log(whtIwant[n])
                                     reallyWhtIwant.push('FILTER_ME_OUT') 
                                 }
                             }
